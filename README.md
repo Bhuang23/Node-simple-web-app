@@ -12,8 +12,8 @@ git clone https://github.com/Bhuang23/node-simple-web-app.git
 go to where the directory where node-simple-web-app is at 
 
 ### Install dependencies
-npm install mongoose express cors body-parser
-npm install nodemon --save-dev
+##### npm install mongoose express cors body-parser
+##### npm install nodemon --save-dev
 
 ## How to run project
 ### `nodemon server.js`
