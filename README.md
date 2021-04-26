@@ -18,4 +18,4 @@ npm install nodemon --save-dev
 ## How to run project
 ### `nodemon server.js`
 
-starts the Nodemon server at port 400
+starts the Nodemon server at port 4000
