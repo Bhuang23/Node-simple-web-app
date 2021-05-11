@@ -1,3 +1,9 @@
+# About this project
+The backend service has two main functions:
+
+* Defines schema models for the mongodb database.
+* Defines Restful APIs in router/controller/service structure that respond to http requests from front-end and communicate with Mongodb server.
+
 # Getting Started with node server
 
 ### Install Node
@@ -7,9 +13,8 @@
 ##### Set up Mongodb Community Server at localhost:27017 and create a database called database with one collection called users.
 
 ### Clone node project
-git clone https://github.com/Bhuang23/node-simple-web-app.git
-
-go to where the directory where node-simple-web-app is at 
+git clone https://github.com/Bhuang23/ecommerce-node-web-app.git
+go to where the directory where ecommerce-node-web-app is at 
 
 ### Install dependencies
 ##### npm install mongoose express cors body-parser
