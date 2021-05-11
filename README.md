@@ -1,4 +1,4 @@
-# About this project
+# About this backend service
 The backend service has two main functions:
 
 * Defines schema models for the mongodb database.
