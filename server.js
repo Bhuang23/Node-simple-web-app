@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 
 // Express Route
 const studentRoute = require('./user/userroute')
+const shopRoute = require('./shop/shoproute')
 
 //Import the mongoose module
 var mongoose = require('mongoose');
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 app.use('/users', studentRoute)
+app.use('/shop', shopRoute)
 
 
 // PORT
