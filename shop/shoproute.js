@@ -2,11 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 const shopController = require("./shopcontroller");
-
+const shopcreateItemMiddleware = [
+    shopController.createItem
+];
+router.post('/createItem', shopcreateItemMiddleware)
 const shopgetAllMiddleware = [
     shopController.getAll
 ];
-router.post('/getAll', shopgetAllMiddleware)
+router.get('/getAll', shopgetAllMiddleware)
 
 const shopgetCategoryMiddleware = [
     shopController.getCategory

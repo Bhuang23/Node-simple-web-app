@@ -1,5 +1,15 @@
 var shopService = require('./shopservice')
 
+const createItem = async function (req, res) {
+    // Validate request parameters, queries using express-validator
+    try {
+        console.log(req.body)
+        var item = await shopService.createItem(req.body)
+        return res.status(200).json({ status: 200, data: item, message: "Successfully created item" });
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+}
 const getAll = async function (req, res) {
     try {
         console.log(req.body)
@@ -37,6 +47,7 @@ const shopgetNameandCategory = async function (req, res) {
     }
 }
 module.exports = {
+    createItem,
     getAll,
     getCategory,
     getName,

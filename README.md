@@ -10,7 +10,7 @@ The backend service has two main functions:
 ##### Install Node.js and npm from https://nodejs.org
 ### Install Mongodb Community Server
 ##### Download and Install Mongodb Community Server from https://www.mongodb.com/try/download/community
-##### Set up Mongodb Community Server at localhost:27017 and create a database called database with one collection called users.
+##### Set up Mongodb Community Server at localhost:27017 and create a database called database with two collection called users and items.
 
 ### Clone node project
 git clone https://github.com/Bhuang23/ecommerce-node-web-app.git
