@@ -16,13 +16,11 @@ exports.createuser = async function (data) {
     try {
         let checkuser = await user.find({username: data.username});
         console.log(checkuser)
-        let checkemail = await user.find({email: data.email});
-        console.log(checkemail)
-        //make sure user and email are unique in database
-        if(checkuser.length===0 && checkemail.length===0)
+        //make sure user is unique in database
+        if(checkuser.length===0)
         {
             //make new user
-            var newuser = new user({username: data.username, password: data.password, email: data.email})
+            var newuser = new user({username: data.username, password: data.password, email: data.email, phonenumber: data.phonenumber, address: data.address, state: data.state, country: data.country, zipcode: data.zipcode})
             await newuser.save()
             return newuser;
         }
