@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 const shopController = require("./shopcontroller");
 const shopcreateItemMiddleware = [
@@ -20,10 +20,15 @@ const shopgetNameMiddleware = [
     shopController.getName
 ];
 router.post('/getName', shopgetNameMiddleware)
+const shopgetIdMiddleware = [
+    shopController.getId
+];
+router.post('/getId', shopgetIdMiddleware)
 
 const shopgetNameandCategoryMiddleware = [
     shopController.shopgetNameandCategory
 ];
 router.post('/getCategoryName', shopgetNameandCategoryMiddleware)
+
 
 module.exports = router;
