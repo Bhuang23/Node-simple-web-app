@@ -19,6 +19,7 @@ go to where the directory where ecommerce-node-web-app is at
 ### Install dependencies
 ##### npm install mongoose express cors body-parser
 ##### npm install nodemon --save-dev
+##### npm install stripe
 
 ## How to run project
 ### `nodemon server.js`
