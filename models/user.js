@@ -15,7 +15,8 @@ const userSchema  = new mongoose.Schema({
         item_category: String,
         item_description: String,
         item_currency: String,
-        item_image: String
+        item_image: String,
+        quantity: Number
     }]
 })
 

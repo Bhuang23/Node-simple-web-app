@@ -7,7 +7,8 @@ const itemSchema  = new mongoose.Schema({
     item_category:{type: String,required: true},
     item_description: {type: String,required: true},
     item_currency: {type: String,required: true},
-    item_image: {type: String,required: true}
+    item_image: {type: String,required: true},
+    item_quantity: {type: Number,required: true}
 })
 
 
