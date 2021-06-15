@@ -31,4 +31,12 @@ const removefromcartMiddleware = [
     userController.removefromcart
 ];
 router.post('/removefromcart', removefromcartMiddleware)
+const getallordersMiddleware = [
+    userController.getallorders
+];
+router.post('/getallorders', getallordersMiddleware)
+const createPaymentMiddleware = [
+    userController.createPayment
+];
+router.post('/createPayment', createPaymentMiddleware)
 module.exports = router;
