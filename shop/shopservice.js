@@ -11,7 +11,7 @@ exports.createItem = async function (data) {
                 item_id: data.item_id, item_name: data.item_name, item_price: data.item_price,
                 item_category: data.item_category,  item_description: data.item_description,
                 item_currency:data.item_currency,
-                item_image: data.item_image
+                item_image: data.item_image, quantity: data.quantity
             });
             await newitem.save()
             return newitem;
@@ -27,9 +27,9 @@ exports.createItem = async function (data) {
 }
 exports.getAll = async function (data) {
     try {
-        console.log(data);
+        //console.log(data);
         const items = await item.find({});
-        console.log(items)
+        //console.log(items)
         return items;
     } catch (e) {
         // Log Errors
