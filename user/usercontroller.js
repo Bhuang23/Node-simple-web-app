@@ -30,6 +30,16 @@ const getusername = async function (req, res) {
         return res.status(400).json({ status: 400, message: e.message });
     }
 }
+const getemail = async function (req, res) {
+    // Validate request parameters, queries using express-validator
+    try {
+        console.log(req.body)
+        const user = await userService.getemail(req.body);
+        return res.status(200).json({ status: 200, data: user, message: "Successfully got user" });
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+}
 const updateuser = async function (req, res) {
     // Validate request parameters, queries using express-validator
     try {
@@ -82,6 +92,7 @@ module.exports = {
     userlogin,
     newuser,
     getusername,
+    getemail,
     updateuser,
     addtocart,
     removefromcart,

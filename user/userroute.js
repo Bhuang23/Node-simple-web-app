@@ -17,6 +17,10 @@ const getuserMiddleware = [
     userController.getusername
 ];
 router.post('/getuser', getuserMiddleware)
+const getemailMiddleware = [
+    userController.getemail
+];
+router.post('/getemail', getemailMiddleware)
 
 const updateuserMiddleware = [
     userController.updateuser

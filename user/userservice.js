@@ -18,7 +18,7 @@ exports.updateuser = async function (data) {
         const userdetail = await user.findOneAndUpdate({_id: data._id}, {
             username: data.username,
             password: data.password,
-            email: data.password,
+            email: data.email,
             phonenumber: data.phonenumber,
             address: data.address,
             state: data.state,
@@ -55,6 +55,17 @@ exports.getusername = async function (data) {
         throw Error(e)
     }
 }
+exports.getemail = async function (data) {
+    try {
+        console.log(data);
+        const userdetail = await user.find({email: data.email});
+        console.log(userdetail)
+        return userdetail;
+    } catch (e) {
+        // Log Errors
+        throw Error(e)
+    }
+}
 
 exports.addtocart = async function (data) {
     if(data.response[0] == null) {
@@ -68,7 +79,7 @@ exports.addtocart = async function (data) {
             for (let i = 0; i < orders.length; i++) {
                 if (data.response[0].item_id === orders[i].item_id) {
                     console.log("found")
-                    if(orders[i].quantity+1 <= data.response[0].quantity) {
+                    if(orders[i].quantity+1 <= data.response[0].item_quantity) {
                         const userdetail = await user.updateOne({
                             "username": data.username,
                             "orders.item_id": data.response[0].item_id
@@ -77,7 +88,17 @@ exports.addtocart = async function (data) {
                     }
                     else
                     {
-                        return "Item out of stock";
+                        if(orders[i].quantity===data.response[0].item_quantity) {
+                            return "Item out of stock";
+                        }
+                        else
+                        {
+                            const userdetail = await user.updateOne({
+                                "username": data.username,
+                                "orders.item_id": data.response[0].item_id
+                            }, {$set: {"orders.$.quantity": data.response[0].item_quantity}}, {safe: true});
+                            return "Reduced order because item out of stock";
+                        }
                     }
                 }
             }
@@ -122,8 +143,8 @@ exports.removefromcart = async function (data) {
                 if(data.item_id==orders[i].item_id)
                 {
                     console.log("found")
-                    if(data.response[0].quantity < orders[i].quantity-1) {
-                        const userdetail = await user.updateOne({ "username": data.username, "orders.item_id": data.item_id},{ $set: { "orders.$.quantity" :data.response[0].quantity}},{safe: true });
+                    if(data.response[0].item_quantity < orders[i].quantity-1) {
+                        const userdetail = await user.updateOne({ "username": data.username, "orders.item_id": data.item_id},{ $set: { "orders.$.quantity" :data.response[0].item_quantity}},{safe: true });
                         return "Reduced order because item out of stock";
                     }
                     else
@@ -156,9 +177,10 @@ exports.removefromcart = async function (data) {
 exports.createuser = async function (data) {
     try {
         let checkuser = await user.find({username: data.username});
+        let checkemail = await user.find({email: data.email});
         console.log(checkuser)
         //make sure user is unique in database
-        if(checkuser.length===0)
+        if(checkuser.length===0 && checkemail.length===0)
         {
             //make new user
             const newuser = new user({
@@ -188,15 +210,16 @@ exports.createuser = async function (data) {
 exports.createPayment = async function (data) {
     let responses = await user.find({"username": data.username});
     let orders = responses[0].orders
-    let items = await item.find({});
+    const items = await item.find({});
     let error = false;
+    //make sure each order is in stock before allowing user to buy it
     for (let i = 0; i < orders.length; i++) {
         let found = false;
         for (let j = 0; j < items.length;j++) {
             if(orders[i].item_id===items[j].item_id)
             {
                 found=true;
-                if(orders[i].quantity>items[j].quantity)
+                if(orders[i].quantity>items[j].item_quantity)
                 {
                     //user ordered too many items
                     const userdetail = await user.updateOne({ "username": data.username, "orders.item_id": orders[i].item_id},{ $set: { "orders.$.quantity" :items[j].quantity}},{safe: true });
@@ -225,8 +248,31 @@ exports.createPayment = async function (data) {
             };
         }
         else {
-            // Create the PaymentIntent
             //console.log(data);
+            //deduce quantity of items in stock
+            for (let i = 0; i < orders.length; i++) {
+                for (let j = 0; j < items.length; j++) {
+                    if (orders[i].item_id === items[j].item_id) {
+                        console.log("orders: "+orders[i].quantity);
+                        console.log("items: "+items[j].item_quantity);
+                        if (orders[i].quantity < items[j].item_quantity)
+                        {
+                            //console.log("reduced: "+items[j].item_id);
+                            const userdetail = await item.findOneAndUpdate({item_id: items[j].item_id}, {item_quantity: items[j].item_quantity-orders[i].quantity}, {new: true})
+                        }
+                        else
+                        {
+                            //console.log("deleted: "+items[j].item_id);
+                            const userdetail = await item.findOneAndRemove({item_id: items[j].item_id});
+                        }
+                    }
+                }
+            }
+            //clear orders
+            for (let i = 0; i < orders.length; i++) {
+                const userdetail = await user.updateOne({ "username": data.username },{"$pull": { "orders": {"item_id": orders[i].item_id}}},{safe: true });
+            }
+            // Create the PaymentIntent
             let intent = await stripe.paymentIntents.create({
                     payment_method: data.result.paymentMethod.id,
                     description: "Test payment",
