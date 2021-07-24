@@ -12,7 +12,7 @@ const userSchema  = new mongoose.Schema({
         item_id: Number,
         item_name: String,
         item_price: Number,
-        item_category: String,
+        item_category: [{type: String}],
         item_description: String,
         item_currency: String,
         item_image: String,
