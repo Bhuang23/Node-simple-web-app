@@ -39,7 +39,7 @@ exports.getAll = async function (data) {
 exports.getCategory = async function (data) {
     try {
         console.log(data);
-        const items = await item.find({item_category: data.item_category});
+        const items = await item.find({item_category: { $all:data.item_category}});
         console.log(items)
         return items;
     } catch (e) {
@@ -50,7 +50,7 @@ exports.getCategory = async function (data) {
 exports.getName = async function (data) {
     try {
         console.log(data);
-        const items = await item.find({item_name:  new RegExp(data.item_name, "i")});
+        const items = await item.find({item_name:  new RegExp(regExpEscape(data.item_name), "i")});
         console.log(items)
         return items;
     } catch (e) {
@@ -69,12 +69,21 @@ exports.getId = async function (data) {
         throw Error(e)
     }
 }
+function regExpEscape(literal_string) {
+    return literal_string.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+}
 exports.shopgetNameandCategory = async function (data) {
     try {
         console.log(data);
-        const items = await item.find({item_category: data.item_category, item_name: new RegExp(data.item_name, "i")});
-        console.log(items)
-        return items;
+        const items = await item.find({item_category:{ $all:data.item_category}, item_name: new RegExp(regExpEscape(data.item_name), "i")});
+        if(items===undefined) {
+            console.log("UNDEFINED")
+            return [];
+        }
+        else {
+            console.log(items)
+            return items;
+        }
     } catch (e) {
         // Log Errors
         throw Error(e)
