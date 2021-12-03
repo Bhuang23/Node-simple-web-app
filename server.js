@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(cors({origin: '*'}));
+app.use(cors());
 app.use('/users', studentRoute)
 app.use('/shop', shopRoute)
 app.use('/review', reviewRoute)
