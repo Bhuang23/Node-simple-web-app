@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(cors({origin: ['http://localhost:3000', 'https://shoppingfirst.herokuapp.com/']}));
+app.use(cors({origin: ['http://localhost:3000', 'https://shoppingfirst.netlify.app']}));
 app.use('/users', studentRoute)
 app.use('/shop', shopRoute)
 app.use('/review', reviewRoute)
