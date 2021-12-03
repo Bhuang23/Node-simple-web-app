@@ -2,7 +2,6 @@ const reviewService = require('./reviewservice');
 
 const createreview = async function (req, res) {
     // Validate request parameters, queries using express-validator
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const item = await reviewService.createreview(req.body);
@@ -12,7 +11,6 @@ const createreview = async function (req, res) {
     }
 }
 const getreviewsbyid = async function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const items = await reviewService.getreviewsbyid(req.body);
@@ -22,7 +20,6 @@ const getreviewsbyid = async function (req, res) {
     }
 }
 const deletereview = async function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const items = await reviewService.deletereview(req.body);

@@ -1,7 +1,6 @@
 const userService = require('./userservice');
 const userlogin = async function (req, res) {
     // Validate request parameters, queries using express-validator
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const users = await userService.getuser(req.body);
@@ -19,7 +18,6 @@ const userlogin = async function (req, res) {
 
 const newuser = async function (req, res) {
     // Validate request parameters, queries using express-validator
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const users = await userService.createuser(req.body);
@@ -37,7 +35,6 @@ const newuser = async function (req, res) {
 }
 const getusername = async function (req, res) {
     // Validate request parameters, queries using express-validator
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const user = await userService.getusername(req.body);
@@ -48,7 +45,6 @@ const getusername = async function (req, res) {
 }
 const getemail = async function (req, res) {
     // Validate request parameters, queries using express-validator
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const user = await userService.getemail(req.body);
@@ -59,7 +55,6 @@ const getemail = async function (req, res) {
 }
 const updateuser = async function (req, res) {
     // Validate request parameters, queries using express-validator
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const user = await userService.updateuser(req.body);
@@ -70,7 +65,6 @@ const updateuser = async function (req, res) {
 }
 const getallorders = async function (req, res) {
     // Validate request parameters, queries using express-validator
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         //console.log(req.body)
         const user = await userService.getallorders(req.body);
@@ -80,7 +74,6 @@ const getallorders = async function (req, res) {
     }
 }
 const addtocart = async function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         //console.log(req.body)
         const user = await userService.addtocart(req.body);
@@ -90,7 +83,6 @@ const addtocart = async function (req, res) {
     }
 }
 const removefromcart = async function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         //console.log(req.body)
         const user = await userService.removefromcart(req.body);
@@ -100,7 +92,6 @@ const removefromcart = async function (req, res) {
     }
 }
 const removeallfromcart = async function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         //console.log(req.body)
         const user = await userService.removeallfromcart(req.body);
@@ -110,7 +101,6 @@ const removeallfromcart = async function (req, res) {
     }
 }
 const createPayment = async function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         //console.log(req.body)
         const payment = await userService.createPayment(req.body);

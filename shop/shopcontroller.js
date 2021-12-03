@@ -2,7 +2,6 @@ const shopService = require('./shopservice');
 
 const createItem = async function (req, res) {
     // Validate request parameters, queries using express-validator
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const item = await shopService.createItem(req.body);
@@ -12,7 +11,6 @@ const createItem = async function (req, res) {
     }
 }
 const getAll = async function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const items = await shopService.getAll();
@@ -22,7 +20,6 @@ const getAll = async function (req, res) {
     }
 }
 const getCategory = async function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const items = await shopService.getCategory(req.body);
@@ -32,7 +29,6 @@ const getCategory = async function (req, res) {
     }
 }
 const getName = async function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const items = await shopService.getName(req.body);
@@ -42,7 +38,6 @@ const getName = async function (req, res) {
     }
 }
 const getId = async function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const items = await shopService.getId(req.body);
@@ -52,7 +47,6 @@ const getId = async function (req, res) {
     }
 }
 const shopgetNameandCategory = async function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://shoppingfirst.netlify.app');
     try {
         console.log(req.body)
         const items = await shopService.shopgetNameandCategory(req.body);
