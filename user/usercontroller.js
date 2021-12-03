@@ -5,14 +5,14 @@ const userlogin = async function (req, res) {
         console.log(req.body)
         const users = await userService.getuser(req.body);
         if(users.username) {
-            return res.status(200).json({status: 200, data: users, message: "Successfully authenticated user"});
+            return res.status(200).json({header: {'Access-Control-Allow-Origin':'*'}, status: 200, data: users, message: "Successfully authenticated user"});
         }
         else
         {
-            return res.status(400).json({ status: 400, data: [], message: "Username or password is invalid" });
+            return res.status(400).json({header: {'Access-Control-Allow-Origin':'*'}, status: 400, data: [], message: "Username or password is invalid" });
         }
     } catch (e) {
-        return res.status(400).json({ status: 400, data: [], message: e.message });
+        return res.status(400).json({header: {'Access-Control-Allow-Origin':'*'}, status: 400, data: [], message: e.message });
     }
 }
 
