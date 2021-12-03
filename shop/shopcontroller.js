@@ -13,7 +13,7 @@ const createItem = async function (req, res) {
 const getAll = async function (req, res) {
     try {
         console.log(req.body)
-        const items = await shopService.getAll(req.body);
+        const items = await shopService.getAll();
         return res.status(200).json({ status: 200, data: items, message: "Successfully got all items" });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });

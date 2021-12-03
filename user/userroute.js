@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const auth = require("../middleware/auth");
 const userController = require("./usercontroller");
 
 const userloginMiddleware = [
@@ -16,31 +16,35 @@ router.post('/newuser', newuserMiddleware)
 const getuserMiddleware = [
     userController.getusername
 ];
-router.post('/getuser', getuserMiddleware)
+router.post('/getuser', auth, getuserMiddleware)
 const getemailMiddleware = [
     userController.getemail
 ];
-router.post('/getemail', getemailMiddleware)
+router.post('/getemail', auth,getemailMiddleware)
 
 const updateuserMiddleware = [
     userController.updateuser
 ];
-router.post('/updateuser', updateuserMiddleware)
+router.post('/updateuser', auth,updateuserMiddleware)
 
 const addtocartMiddleware = [
     userController.addtocart
 ];
-router.post('/addtocart', addtocartMiddleware)
+router.post('/addtocart', auth,addtocartMiddleware)
 const removefromcartMiddleware = [
     userController.removefromcart
 ];
-router.post('/removefromcart', removefromcartMiddleware)
+router.post('/removefromcart', auth,removefromcartMiddleware)
+const removeallfromcartMiddleware = [
+    userController.removeallfromcart
+];
+router.post('/removeallfromcart', auth,removeallfromcartMiddleware)
 const getallordersMiddleware = [
     userController.getallorders
 ];
-router.post('/getallorders', getallordersMiddleware)
+router.post('/getallorders', auth,getallordersMiddleware)
 const createPaymentMiddleware = [
     userController.createPayment
 ];
-router.post('/createPayment', createPaymentMiddleware)
+router.post('/createPayment', auth,createPaymentMiddleware)
 module.exports = router;

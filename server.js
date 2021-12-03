@@ -1,17 +1,21 @@
 var express = require('express');
 var cors = require('cors');
 const bodyParser = require('body-parser');
-
+const bcrypt = require('bcryptjs');
 // Express Route
 const studentRoute = require('./user/userroute')
 const shopRoute = require('./shop/shoproute')
-
+const reviewRoute = require('./review/reviewroute')
 //Import the mongoose module
 const mongoose = require('mongoose');
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 //Set up default mongoose connection
-const mongoDB = 'mongodb://localhost:27017/database';
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
+const   { MONGO_URI } = process.env;
+console.log(MONGO_URI)
+mongoose.connect(MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
 
 //Get the default connection
 const db = mongoose.connection;
@@ -24,9 +28,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(cors());
+app.use(cors({origin: ['http://localhost:3000', 'https://daoggregate.netlify.app']}));
 app.use('/users', studentRoute)
 app.use('/shop', shopRoute)
+app.use('/review', reviewRoute)
 
 
 // PORT

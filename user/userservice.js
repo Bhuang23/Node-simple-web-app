@@ -1,12 +1,31 @@
 let user = require('../models/user')
 let item = require('../models/item')
+const jwt = require("jsonwebtoken");
+const bcrypt = require('bcryptjs');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 exports.getuser = async function (data) {
     try {
+        const { username, password } = data;
         console.log(data);
-        const userdetail = await user.find({username: data.username, password: data.password});
+        const userdetail = await user.findOne({username: username});
         console.log(userdetail)
-        return userdetail;
+        if (userdetail && (await bcrypt.compare(password, userdetail.password))) {
+            console.log("Inside")
+            // Create token
+            const   {  TOKEN_KEY  } = process.env;
+            // save user token
+            userdetail.token = jwt.sign(
+                {user_id: userdetail._id, username},
+                TOKEN_KEY,
+                {
+                    expiresIn: "2h",
+                }
+            );
+            console.log(userdetail)
+            return userdetail;
+        }
+        console.log("failed")
+        return [];
     } catch (e) {
         // Log Errors
         throw Error(e)
@@ -15,9 +34,10 @@ exports.getuser = async function (data) {
 exports.updateuser = async function (data) {
     try {
         console.log(data);
+        encryptedPassword = await bcrypt.hash(data.password, 10);
         const userdetail = await user.findOneAndUpdate({_id: data._id}, {
             username: data.username,
-            password: data.password,
+            password: encryptedPassword,
             email: data.email,
             phonenumber: data.phonenumber,
             address: data.address,
@@ -126,7 +146,36 @@ exports.addtocart = async function (data) {
         }
     }
 }
-
+exports.removeallfromcart = async function (data) {
+    console.log("start")
+    if(data.response[0]==null) {
+        const userdetail = await user.updateOne({ "username": data.username },{"$pull": { "orders": {"item_id": data.item_id}}},{safe: true });
+        return "Item out of stock";
+    }
+    else
+    {
+        try {
+            let responses = await user.find({ "username": data.username});
+            let orders = responses[0].orders
+            for(let i = 0; i < orders.length;i++)
+            {
+                if(data.item_id==orders[i].item_id)
+                {
+                    console.log("found")
+                    const userdetail = await user.updateOne({ "username": data.username },{"$pull": { "orders": {"item_id": data.item_id}}},{safe: true });
+                    return "Order removed successfully";
+                }
+                else {
+                }
+            }
+            const userdetail = await user.updateOne({ "username": data.username },{"$pull": { "orders": {"item_id": data.item_id}}},{safe: true });
+            return "Order not found";
+        } catch (e) {
+            // Log Errors
+            throw Error(e)
+        }
+    }
+}
 exports.removefromcart = async function (data) {
     console.log("start")
     if(data.response[0]==null) {
@@ -176,24 +225,36 @@ exports.removefromcart = async function (data) {
 
 exports.createuser = async function (data) {
     try {
-        let checkuser = await user.find({username: data.username});
-        let checkemail = await user.find({email: data.email});
+        console.log(data)
+        const { username, password, email, phonenumber, address, state, country, zipcode} = data;
+        let checkuser = await user.find({username: username});
+        let checkemail = await user.find({email: email});
         console.log(checkuser)
         //make sure user is unique in database
         if(checkuser.length===0 && checkemail.length===0)
         {
+            console.log(data)
+            encryptedPassword = await bcrypt.hash(password, 10);
             //make new user
-            const newuser = new user({
-                username: data.username,
-                password: data.password,
-                email: data.email,
-                phonenumber: data.phonenumber,
-                address: data.address,
-                state: data.state,
-                country: data.country,
-                zipcode: data.zipcode
+            const newuser = await user.create({
+                username: username,
+                password: encryptedPassword,
+                email: email,
+                phonenumber: phonenumber,
+                address: address,
+                state: state,
+                country: country,
+                zipcode: zipcode
             });
-            await newuser.save()
+            const   {  TOKEN_KEY  } = process.env;
+            newuser.token = jwt.sign(
+                {user_id: newuser._id, email},
+                TOKEN_KEY,
+                {
+                    expiresIn: "2h",
+                }
+            );
+            console.log(newuser)
             return newuser;
         }
         else{

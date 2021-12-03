@@ -17,7 +17,8 @@ const userSchema  = new mongoose.Schema({
         item_currency: String,
         item_image: String,
         quantity: Number
-    }]
+    }],
+    token: { type: String }
 })
 
 

@@ -4,9 +4,15 @@ const userlogin = async function (req, res) {
     try {
         console.log(req.body)
         const users = await userService.getuser(req.body);
-        return res.status(200).json({ status: 200, data: users, message: "Successfully authenticated user" });
+        if(users.username) {
+            return res.status(200).json({status: 200, data: users, message: "Successfully authenticated user"});
+        }
+        else
+        {
+            return res.status(400).json({ status: 400, data: [], message: "Username or password is invalid" });
+        }
     } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message });
+        return res.status(400).json({ status: 400, data: [], message: e.message });
     }
 }
 
@@ -15,7 +21,14 @@ const newuser = async function (req, res) {
     try {
         console.log(req.body)
         const users = await userService.createuser(req.body);
-        return res.status(200).json({ status: 200, data: users, message: "Successfully registered user" });
+        console.log(users)
+        if(users.username){
+            return res.status(200).json({ status: 200, data: users, message: "Successfully registered user" });
+        }
+        else
+        {
+            return res.status(400).json({ status: 400, data: [], message: "Username or email already taken" });
+        }
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
     }
@@ -64,7 +77,7 @@ const addtocart = async function (req, res) {
     try {
         //console.log(req.body)
         const user = await userService.addtocart(req.body);
-        return res.status(200).json({ status: 200, data: user, message: "Successfully added item to cart" });
+        return res.status(200).json({ status: 200, data: [], message: user });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
     }
@@ -73,7 +86,16 @@ const removefromcart = async function (req, res) {
     try {
         //console.log(req.body)
         const user = await userService.removefromcart(req.body);
-        return res.status(200).json({ status: 200, data: user, message: "Successfully removed item to cart" });
+        return res.status(200).json({ status: 200, data: [], message: user });
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+}
+const removeallfromcart = async function (req, res) {
+    try {
+        //console.log(req.body)
+        const user = await userService.removeallfromcart(req.body);
+        return res.status(200).json({ status: 200, data:[], message: user });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
     }
@@ -96,5 +118,6 @@ module.exports = {
     updateuser,
     addtocart,
     removefromcart,
+    removeallfromcart,
     getallorders
 };

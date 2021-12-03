@@ -25,11 +25,10 @@ exports.createItem = async function (data) {
         throw Error(e)
     }
 }
-exports.getAll = async function (data) {
+exports.getAll = async function () {
     try {
-        //console.log(data);
         const items = await item.find({});
-        //console.log(items)
+        console.log(items)
         return items;
     } catch (e) {
         // Log Errors
