@@ -33,6 +33,7 @@ app.use('/users', studentRoute)
 app.use('/shop', shopRoute)
 app.use('/review', reviewRoute)
 
+app.get('/', (req, res) => { res.send('Hello from Express!')})
 
 // PORT
 const port = process.env.PORT || 4000;
