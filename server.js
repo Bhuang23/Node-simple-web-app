@@ -36,7 +36,7 @@ app.use('/review', reviewRoute)
 app.get('/', (req, res) => { res.send('Hello from Express!')})
 
 // PORT
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
     console.log('Connected to port ' + port)
 })
