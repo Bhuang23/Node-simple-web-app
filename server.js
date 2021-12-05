@@ -34,7 +34,15 @@ app.use('/users', studentRoute)
 app.use('/shop', shopRoute)
 app.use('/review', reviewRoute)
 
-app.get('/', (req, res) => { res.send('Hello from Express!')})
+app.get('/', (req, res) => {
+    res.header("Access-Control-Allow-Origin", 'https://shoppingfirst.netlify.app');
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true);
+    res.send('Hello from Express!')})
 
 // PORT
 const port = process.env.PORT || 4000;

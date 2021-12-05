@@ -1,6 +1,13 @@
 const userService = require('./userservice');
 const userlogin = async function (req, res) {
     // Validate request parameters, queries using express-validator
+    res.header("Access-Control-Allow-Origin", 'https://shoppingfirst.netlify.app');
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true);
     try {
         console.log(req.body)
         const users = await userService.getuser(req.body);
@@ -17,6 +24,13 @@ const userlogin = async function (req, res) {
 }
 
 const newuser = async function (req, res) {
+    res.header("Access-Control-Allow-Origin", 'https://shoppingfirst.netlify.app');
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true);
     // Validate request parameters, queries using express-validator
     try {
         console.log(req.body)
@@ -34,6 +48,13 @@ const newuser = async function (req, res) {
     }
 }
 const getusername = async function (req, res) {
+    res.header("Access-Control-Allow-Origin", 'https://shoppingfirst.netlify.app');
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true);
     // Validate request parameters, queries using express-validator
     try {
         console.log(req.body)
@@ -44,6 +65,13 @@ const getusername = async function (req, res) {
     }
 }
 const getemail = async function (req, res) {
+    res.header("Access-Control-Allow-Origin", 'https://shoppingfirst.netlify.app');
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true);
     // Validate request parameters, queries using express-validator
     try {
         console.log(req.body)
@@ -54,6 +82,13 @@ const getemail = async function (req, res) {
     }
 }
 const updateuser = async function (req, res) {
+    res.header("Access-Control-Allow-Origin", 'https://shoppingfirst.netlify.app');
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true);
     // Validate request parameters, queries using express-validator
     try {
         console.log(req.body)
@@ -64,6 +99,13 @@ const updateuser = async function (req, res) {
     }
 }
 const getallorders = async function (req, res) {
+    res.header("Access-Control-Allow-Origin", 'https://shoppingfirst.netlify.app');
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true);
     // Validate request parameters, queries using express-validator
     try {
         //console.log(req.body)
@@ -74,6 +116,13 @@ const getallorders = async function (req, res) {
     }
 }
 const addtocart = async function (req, res) {
+    res.header("Access-Control-Allow-Origin", 'https://shoppingfirst.netlify.app');
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true);
     try {
         //console.log(req.body)
         const user = await userService.addtocart(req.body);
@@ -83,6 +132,13 @@ const addtocart = async function (req, res) {
     }
 }
 const removefromcart = async function (req, res) {
+    res.header("Access-Control-Allow-Origin", 'https://shoppingfirst.netlify.app');
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true);
     try {
         //console.log(req.body)
         const user = await userService.removefromcart(req.body);
@@ -92,6 +148,13 @@ const removefromcart = async function (req, res) {
     }
 }
 const removeallfromcart = async function (req, res) {
+    res.header("Access-Control-Allow-Origin", 'https://shoppingfirst.netlify.app');
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true);
     try {
         //console.log(req.body)
         const user = await userService.removeallfromcart(req.body);
@@ -101,6 +164,13 @@ const removeallfromcart = async function (req, res) {
     }
 }
 const createPayment = async function (req, res) {
+    res.header("Access-Control-Allow-Origin", 'https://shoppingfirst.netlify.app');
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true);
     try {
         //console.log(req.body)
         const payment = await userService.createPayment(req.body);
