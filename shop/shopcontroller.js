@@ -74,6 +74,8 @@ const getId = async function (req, res) {
     res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
     res.header("Access-Control-Allow-Credentials", true);
     try {
+        console.log("success");
+        console.log(req)
         console.log(req.body)
         const items = await shopService.getId(req.body);
         return res.status(200).json({ status: 200, data: items, message: "Successfully got item" });
